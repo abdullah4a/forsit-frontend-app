@@ -22,13 +22,13 @@ export const interceptResponseError = (error: any) => {
     const res = error.response;
     if (res.status >= 500) {
         if (!res.config.headers['x-silent-status']?.includes(res.status)) {
-            alert(res.data.message || res.data.error || 'Server Error\nPlease Refresh page and try again');
+            alert(res.data.message || res.data.error_description || 'Server Error\nPlease Refresh page and try again');
         }
     }
     if (res.status === 401) {
-        alert(res.data.message || res.data.error || 'Auth Error\nPlease Refresh page and try again');
+        alert(res.data.message || res.data.error_description || 'Auth Error\nPlease Refresh page and try again');
     } else if (res.status >= 400 && res.status < 500) {
-        alert(res.data.message || res.data.error || 'Request Error\nPlease, try again');
+        alert(res.data.message || res.data.error_description || 'Request Error\nPlease, try again');
     }
     return Promise.reject(error);
 };

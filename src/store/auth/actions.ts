@@ -1,4 +1,4 @@
-// import AuthAPI from '@/services/api/auth.service';
+import AuthAPI from '@/services/api/auth.service';
 import { ActionTree } from 'vuex';
 import { AuthState } from './types';
 import { DELETE_TOKEN, LOGOUT, SAVE_TOKEN, SAVE_USER, SET_UPLOADING, } from './mutations';
@@ -7,19 +7,19 @@ export const actions: ActionTree<AuthState, any> = {
   async login({ commit, dispatch }, credentials) {
     try {
       const user = await dispatch('getUser');
-      if (user.email === credentials.username) {
-        const resp = {
-          data: {
-            access_token: user.email
-          }
-        }
+      // if (user.email === credentials.username) {
+      //   const resp = {
+      //     data: {
+      //       access_token: user.email
+      //     }
+      //   }
+      //   commit(SAVE_TOKEN, resp.data.access_token);
+      //   return user
+      // } else {
+        const resp = await AuthAPI.login(credentials);
         commit(SAVE_TOKEN, resp.data.access_token);
-        return user
-      } else
-        return null
-      // const resp = await AuthAPI.login(credentials);
-      // commit(SAVE_TOKEN, resp.data.access_token);
-      // return await dispatch('getUser');
+        return await dispatch('getUser');
+      // }
     } catch (error: any) {
       commit(LOGOUT);
       commit(DELETE_TOKEN);
@@ -39,7 +39,7 @@ export const actions: ActionTree<AuthState, any> = {
         commit(SAVE_TOKEN, resp.data.access_token);
         return user
       }
-      // return await AuthAPI.signup(credentials);
+      return await AuthAPI.signup(credentials);
     } catch (error: any) {
       return error.response.data;
     }
@@ -48,13 +48,12 @@ export const actions: ActionTree<AuthState, any> = {
   logout({ commit }) {
     commit(LOGOUT);
     return true
-    // return AuthAPI.logout();
+    return AuthAPI.logout();
   },
 
-  async sendPasswordReset(context, data) {
+  async sendPasswordReset(context, payload) {
     try {
-      // const resp = await AuthAPI.sendPasswordReset(data);
-      const { data } = { data: {} }
+      const { data } = await AuthAPI.sendPasswordReset(payload);
       return data;
     } catch (error: any) {
       return error.response.data;
@@ -63,11 +62,10 @@ export const actions: ActionTree<AuthState, any> = {
 
   async resetPassword({ commit }, data) {
     commit(SET_UPLOADING, true);
-    // const successful = await AuthAPI.resetPassword(data).then(
-    //   () => true,
-    //   () => false,
-    // );
-    const successful = true;
+    const successful = await AuthAPI.resetPassword(data).then(
+      () => true,
+      () => false,
+    );
     commit(SET_UPLOADING, false);
     return successful;
   },
@@ -75,8 +73,7 @@ export const actions: ActionTree<AuthState, any> = {
   async getUser({ commit }) {
     try {
       if (!this.state.user) {
-        // const data = await AuthAPI.me();
-        const { data } = { data: {} }
+        const data = await AuthAPI.me();
         commit(SAVE_USER, data);
         return data;
       } else {
