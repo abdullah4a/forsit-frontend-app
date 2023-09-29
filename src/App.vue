@@ -11,7 +11,6 @@ export default {
   },
   computed: {
     layout() {
-      console.log(this.$route.meta.layout);
       return this.$route.meta.layout || DefaultLayout;
     },  getTheme(){
             const theme=localStorageKeys.CURRENT_THEME
