@@ -2,7 +2,7 @@ const menuTitles:Array<Record<string, any>>=[
 {
     name:"Home",
     description:"",
-    icon:"mdi-dashboard",
+    icon:"mdi-home",
     path:{
         to:"/",
         name:"Home"
@@ -14,7 +14,7 @@ const menuTitles:Array<Record<string, any>>=[
     icon:"mdi-information",
     path:{
         to:"/",
-        name:"about"
+        name:"About"
     },
     children:[]
 }]

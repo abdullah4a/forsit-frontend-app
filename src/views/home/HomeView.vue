@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <h1>Home</h1>
-  </div>
+  <v-main>
+    <v-card>
+      <v-card-title>Home</v-card-title>
+    </v-card>
+  </v-main>
 </template>
 
 <script lang="ts">
