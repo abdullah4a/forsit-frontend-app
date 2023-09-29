@@ -1,0 +1,1 @@
+export type dataTypeForLocalStorage = number | string | boolean | Record<string, any> | Array<Record<string, any>> | null | undefined;
