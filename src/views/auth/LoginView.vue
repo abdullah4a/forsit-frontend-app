@@ -1,28 +1,15 @@
 <template>
   <v-form ref="form">
-    <v-text-field
-      variant="outlined"
-      class="py-1"
-      v-model="user.userName"
-      :rules="userNameRules"
-      label="Username / Phone No."
-      required
-    >
+    <v-text-field variant="outlined" class="py-1" v-model="user.userName" :rules="userNameRules"
+      label="Username / Phone No." required>
     </v-text-field>
-    <v-text-field
-      variant="outlined"
-      class="py-1"
-      type="password"
-      v-model="user.password"
-      :rules="passwordRules"
-      label="Password"
-      required
-    >
+    <v-text-field variant="outlined" class="py-1" type="password" v-model="user.password" :rules="passwordRules"
+      label="Password" required>
     </v-text-field>
     <div class="d-flex flex-wrap justify-end">
       <router-link :to="{ name: 'ForgotPassword' }" class="mx-4">
         Forgot Password ?
-        </router-link>
+      </router-link>
     </div>
     <div class="d-flex flex-wrap justify-center">
       <v-btn color="primaryDeep" class="mt-4" :block="false" @click="login()">
@@ -58,29 +45,29 @@ export default {
     async login() {
       const result = await this.$refs["form"].validate();
       if (result) {
-        // const username=this.user.userName
-        // const password=this.user.password
-        // this.processing = true;
-        // this.$store
-        //   .dispatch("auth/login", {
-        //     username,
-        //     password,
-        //   })
-        //   .then((response: any) => {
-        //     if (!response.error) {
-        //       this.openSnack(
-        //         "Success, Welcome " + response.firstName,
-        //         "primaryDeep"
-        //       );
-        await this.handleSuccess();
+        const username = this.user.userName
+        const password = this.user.password
+        this.processing = true;
+        this.$store
+          .dispatch("auth/login", {
+            username,
+            password,
+          })
+          .then(async (response: any) => {
+            if (!response.error) {
+              //       this.openSnack(
+              //         "Success, Welcome " + response.firstName,
+              //         "primaryDeep"
+              //       );
+              await this.handleSuccess();
+            }
+          })
+          .catch((error: any) => {
+            this.openSnack(error.message, "red-darken-2");
+            this.processing = false;
+            throw error;
+          });
       }
-      //       })
-      //       .catch((error: any) => {
-      //         this.openSnack(error.message, "red-darken-2");
-      //         this.processing = false;
-      //         throw error;
-      //       });
-      //   }
     },
 
     openSnack(msg: string, cls: string) {
@@ -105,5 +92,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
