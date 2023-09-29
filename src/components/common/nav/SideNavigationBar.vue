@@ -17,7 +17,7 @@
     </v-list>
     <template v-slot:append>
       <v-list>
-        <v-list-item prepend-icon="mdi-logout" title="Logout" :to="{ name: 'Home' }"></v-list-item>
+        <v-list-item prepend-icon="mdi-logout" title="Logout" :to="{ name: 'Logout' }"></v-list-item>
       </v-list>
     </template>
   </v-navigation-drawer>

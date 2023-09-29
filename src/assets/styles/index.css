@@ -1,0 +1,81 @@
+.v-app {
+  margin: 0;
+  padding: 0;
+}
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  display: inline-flex;
+  padding: 0;
+}
+li {
+  margin: 0 10px;
+}
+.link {
+  color: #42b983;
+}
+
+/* Auth Section starts */
+.login-page-image {
+  width: 50%;
+  height: 100%;
+}
+.login-text {
+  margin-bottom: 1%;
+  text-align: center;
+}
+.row-height-full-custom {
+  margin: 0;
+  height: 99vh;
+  padding: 0;
+  width: 100%;
+}
+.card-height-full-custom {
+  margin: 0;
+  padding: 0;
+  padding-top: 11%;
+  height: 100%;
+  width: 100%;
+}
+.login-input-card {
+  margin: 18% 10%;
+}
+.signup-input-card {
+  margin: 6% 10% 5% 10%;
+}
+.auth-images {
+  position: relative;
+}
+.auth-image-back{
+  z-index:1 ;
+  width: 600px;
+  right: -10vw !important;
+  top: 0px;
+}
+.auth-image-front{
+  width: 500px;
+  top: -220px;
+  right: -17vh !important;
+  z-index:1;
+}
+.forget-password-submitted{
+  background-color: red;
+}
+/* Aut Section Ends */
+.upgrade-btn {
+  transition: background-color ease-in-out 0.75s;
+}
+
+.upgrade-btn:hover {
+  background-color: rgba(0, 0, 247, 0.838);
+  color: aliceblue;
+}
+
+.rec-client-bg {
+  background-color: rgba(237, 237, 235, 0.511);
+}
+.home {
+  margin: 2% auto;
+}

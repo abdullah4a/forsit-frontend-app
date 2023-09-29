@@ -3,10 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
+import '@/assets/styles/index.css'
 
 // Layout imports
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import NotFoundLayout from '@/layouts/NotFoundLayout.vue';
+import AuthLayout from '@/layouts/AuthLayout.vue';
 
 // Components imports
 import SideNavigationBar from "@/components/common/nav/SideNavigationBar.vue";
@@ -20,6 +22,8 @@ const app = createApp(App)
 // Global Layouts declaration
 app.component('DefaultLayout', DefaultLayout)
   .component('NotFoundLayout', NotFoundLayout)
+  .component('AuthLayout', AuthLayout)
+
 // Global Components declaration
 app.component('SideNavigationBar', SideNavigationBar)
   .component('AppData', AppData)
@@ -27,6 +31,7 @@ app.component('SideNavigationBar', SideNavigationBar)
   .component("LineChart", LineChartComponent)
   .component("PieChart", PieChartComponent)
 
+// Plugin Registration
 app.use(router)
   .use(store)
   .use(vuetify)
