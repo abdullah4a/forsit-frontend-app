@@ -19,6 +19,11 @@
           <v-list-item :prepend-icon="menu.icon" :title="menu.name" :value="menu.name" v-else
             :to="{ name: menu.path.name }"></v-list-item>
         </v-list>
+        <template v-slot:append>
+          <v-list>
+            <v-list-item prepend-icon="mdi-logout" title="Logout" :to="{name:'Home'}"></v-list-item>
+          </v-list>
+        </template>
       </v-navigation-drawer>
       <slot name="main"></slot>
     </v-layout>
