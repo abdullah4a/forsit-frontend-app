@@ -7,19 +7,19 @@ export const actions: ActionTree<AuthState, any> = {
   async login({ commit, dispatch }, credentials) {
     try {
       const user = await dispatch('getUser');
-      // if (user.email === credentials.username) {
-      //   const resp = {
-      //     data: {
-      //       access_token: user.email
-      //     }
-      //   }
-      //   commit(SAVE_TOKEN, resp.data.access_token);
-      //   return user
-      // } else {
+      if (user.email === credentials.username) {
+        const resp = {
+          data: {
+            access_token: user.email
+          }
+        }
+        commit(SAVE_TOKEN, resp.data.access_token);
+        return user
+      } else {
         const resp = await AuthAPI.login(credentials);
         commit(SAVE_TOKEN, resp.data.access_token);
         return await dispatch('getUser');
-      // }
+      }
     } catch (error: any) {
       commit(LOGOUT);
       commit(DELETE_TOKEN);

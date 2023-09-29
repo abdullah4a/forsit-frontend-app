@@ -43,31 +43,31 @@ export default {
   },
   methods: {
     async login() {
-      const result = await this.$refs["form"].validate();
-      if (result) {
-        const username = this.user.userName
-        const password = this.user.password
-        this.processing = true;
-        this.$store
-          .dispatch("auth/login", {
-            username,
-            password,
-          })
-          .then(async (response: any) => {
-            if (!response.error) {
+      // const result = await this.$refs["form"].validate();
+      // if (result) {
+      //   const username = this.user.userName
+      //   const password = this.user.password
+      //   this.processing = true;
+      //   this.$store
+      //     .dispatch("auth/login", {
+      //       username,
+      //       password,
+      //     })
+      //     .then(async (response: any) => {
+      //       if (!response.error) {
               //       this.openSnack(
               //         "Success, Welcome " + response.firstName,
               //         "primaryDeep"
               //       );
               await this.handleSuccess();
-            }
-          })
-          .catch((error: any) => {
-            this.openSnack(error.message, "red-darken-2");
-            this.processing = false;
-            throw error;
-          });
-      }
+            // }
+      //     })
+      //     .catch((error: any) => {
+      //       this.openSnack(error.message, "red-darken-2");
+      //       this.processing = false;
+      //       throw error;
+      //     });
+      // }
     },
 
     openSnack(msg: string, cls: string) {
