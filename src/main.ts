@@ -11,6 +11,9 @@ import NotFoundLayout from '@/layouts/NotFoundLayout.vue';
 // Components imports
 import SideNavigationBar from "@/components/common/nav/SideNavigationBar.vue";
 import AppData from "@/components/common/app-data/AppData.vue";
+import BarChartComponent from "./components/common/charts/BarChartComponent.vue"
+import LineChartComponent from "./components/common/charts/LineChartComponent.vue"
+import PieChartComponent from "./components/common/charts/PieChartComponent.vue"
 
 const app = createApp(App)
 
@@ -20,6 +23,9 @@ app.component('DefaultLayout', DefaultLayout)
 // Global Components declaration
 app.component('SideNavigationBar', SideNavigationBar)
   .component('AppData', AppData)
+  .component("BarChart", BarChartComponent)
+  .component("LineChart", LineChartComponent)
+  .component("PieChart", PieChartComponent)
 
 app.use(router)
   .use(store)
