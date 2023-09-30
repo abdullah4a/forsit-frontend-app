@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import defaultRoutes from './default'
 import authRoutes from './auth'
 import revenueRoutes from './revenue'
+import inventoryRoutes from './inventory'
 // import { generalStorage } from '@/storages/generalStorage'
 // import { localStorageKeys } from '@/utils/enum/localStorageKeys.enum'
 // import store from '@/store'
@@ -9,7 +10,8 @@ import revenueRoutes from './revenue'
 const routes = [
  ...defaultRoutes,
  ...authRoutes,
- ...revenueRoutes
+ ...revenueRoutes,
+ ...inventoryRoutes,
 ]
 
 const router = createRouter({

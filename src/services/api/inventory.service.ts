@@ -13,6 +13,7 @@ const InventoryAPI = {
         return new Promise<number>((resolve) => resolve(getTotalUniqueProductsQuantities(inventories)));
     },
     createInventory(payload: any) {
+        payload.inventory_id=inventories.length+1
         inventories.push(payload)
         return new Promise<Record<string, any>>((resolve) => resolve(payload));
     },

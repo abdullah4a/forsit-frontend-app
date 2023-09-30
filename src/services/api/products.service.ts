@@ -13,26 +13,27 @@ const ProductsAPI = {
         return new Promise<number>((resolve) => resolve(getTotalUniqueProductsQuantities(products)));
     },
     createProducts(payload: any) {
+        payload['product_id'] = products.length + 1
         products.push(payload)
         return new Promise<Record<string, any>>((resolve) => resolve(payload));
     },
     updateProducts(id: number, payload: any) {
-        const index=products.findIndex(sale=>sale.product_id===id)
-        if (index>0) {
-            products[index]={...payload}
+        const index = products.findIndex(sale => sale.product_id === id)
+        if (index > 0) {
+            products[index] = { ...payload }
             return new Promise<Record<string, any>>((resolve) => resolve(payload));
         }
         else
-        return new Promise<Record<string, any>>((resolve, reject) => reject("Not Found"))
+            return new Promise<Record<string, any>>((resolve, reject) => reject("Not Found"))
     },
     deleteProducts(id: number) {
-        const index=products.findIndex(sale=>sale.product_id===id)
-        if (index>0) {
+        const index = products.findIndex(sale => sale.product_id === id)
+        if (index > 0) {
             products.splice(index, 1)
             return new Promise<boolean>((resolve) => resolve(true));
         }
         else
-        return new Promise<Record<string, any>>((resolve, reject) => reject("Not Found"))
+            return new Promise<Record<string, any>>((resolve, reject) => reject("Not Found"))
     },
 };
 export default ProductsAPI;
