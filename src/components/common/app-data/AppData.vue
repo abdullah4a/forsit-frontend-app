@@ -1,8 +1,13 @@
 <template>
     <v-main>
+        
         <v-card>
-            <AppDataControlBar :search-able="false"></AppDataControlBar>
-            <v-card-title>{{ title }}</v-card-title>
+            <AppDataControlBar :search-able="showSearch" :show-controls="showControls" @search:input="searched">
+                <template #controls>
+                    <slot name="app_data:controls" />
+                </template>
+            </AppDataControlBar>
+            <v-card-title class="my-6">{{ title }}</v-card-title>
             <v-card-text>
                 <slot name="content"></slot>
             </v-card-text>
@@ -19,9 +24,23 @@ export default {
             type: String,
             default: '',
             required: true
+        },
+        showSearch: {
+            type: Boolean,
+            default: false
+        },
+        showControls: {
+            type: Boolean,
+            default: false
+        },
+    },
+    components: { AppDataControlBar },
+    methods: {
+        searched(query) {
+            console.log(query);
+
         }
     },
-    components: { AppDataControlBar }
 }
 </script>
 
