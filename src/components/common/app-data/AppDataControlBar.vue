@@ -1,6 +1,6 @@
 <template>
     <v-card v-if="controlAble||searchAble">
-        <v-row class="ma-1">
+        <v-row class="mx-1">
             <v-col v-if="searchAble">
                 <AppDataSearchBar :search="searched" @searched:input="search"></AppDataSearchBar>
             </v-col>

@@ -1,12 +1,12 @@
 <template>
     <v-main>
         <v-sheet>
+            <v-card-title class="mt-6 text-h5">{{ getTitle }}</v-card-title>
             <AppDataControlBar :search-able="showSearch" :show-controls="showControls" @search:input="searched">
                 <template #controls>
                     <slot name="app_data:controls" />
                 </template>
             </AppDataControlBar>
-            <v-card-title class="my-6 text-h5">{{ getTitle }}</v-card-title>
             <v-card-text>
                 <slot name="content"></slot>
             </v-card-text>

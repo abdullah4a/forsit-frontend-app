@@ -17,6 +17,7 @@ import BarChartComponent from "./components/common/charts/BarChartComponent.vue"
 import LineChartComponent from "./components/common/charts/LineChartComponent.vue"
 import PieChartComponent from "./components/common/charts/PieChartComponent.vue"
 import AppDataGridTable from "./components/common/data-table/AppDataGridTable.vue"
+import DefaultModal from "./components/common/dialog/DefaultModal.vue"
 
 const app = createApp(App)
 
@@ -31,7 +32,8 @@ app.component('SideNavigationBar', SideNavigationBar)
   .component("BarChart", BarChartComponent)
   .component("LineChart", LineChartComponent)
   .component("PieChart", PieChartComponent)
-  .component("AppDataTable", AppDataGridTable);
+  .component("AppDataTable", AppDataGridTable)
+  .component("modal", DefaultModal);
 
 // Plugin Registration
 app.use(router)
