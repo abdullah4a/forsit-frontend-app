@@ -2025,6 +2025,16 @@ address@^1.1.2:
   resolved "https://registry.yarnpkg.com/address/-/address-1.2.2.tgz#2b5248dac5485a6390532c6a517fda2e3faac89e"
   integrity sha512-4B/qKCfeE/ODUaAUpSwfzazo5x29WD4r3vXiWsB7I2mSDAihwEqKO+g8GELZUQSSAo5e1XTYh3ZVfLyxBc12nA==
 
+ag-grid-community@^30.2.0:
+  version "30.2.0"
+  resolved "https://registry.yarnpkg.com/ag-grid-community/-/ag-grid-community-30.2.0.tgz#b831fc99df1bfee6f73669fd8b7d3e9bd4012e22"
+  integrity sha512-Gd6GXmtzEQSCDloBdRxxCDqnjTBRAOf/zzlaxxyyVBJgc+cePuNgGdplRUhT/rwIiDwvyuoynvxelVE/iYdXsA==
+
+ag-grid-vue3@^30.2.0:
+  version "30.2.0"
+  resolved "https://registry.yarnpkg.com/ag-grid-vue3/-/ag-grid-vue3-30.2.0.tgz#ee13d355fa049147fb85fb6f978a858a07767be6"
+  integrity sha512-tckZTjYAmjV0bnvGshpLmvWZO17sxsSSslJy8Rh8HMlRYJqTt8yuZKePi+uyZxHNeQYjDdOpF+OkISuyJlvGzA==
+
 ajv-formats@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ajv-formats/-/ajv-formats-2.1.1.tgz#6e669400659eb74973bbf2e33327180a0996b520"
