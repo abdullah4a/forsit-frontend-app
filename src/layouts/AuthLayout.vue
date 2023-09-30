@@ -72,8 +72,8 @@ export default {
         },
         getTitle() {
             const titles = {
-                Login: "Welcome to Ibernia!",
-                Signup: "Welcome to Ibernia!",
+                Login: "Welcome to Forsit!",
+                Signup: "Welcome to Forsit!",
             };
             return titles[`${this.$route.name}`];
         },
