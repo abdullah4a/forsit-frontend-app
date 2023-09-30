@@ -1,6 +1,6 @@
 const menuTitles: Array<Record<string, any>> = [
     {
-        name: "Home",
+        name: "Dashboard",
         description: "",
         icon: "mdi-home",
         path: {
@@ -9,12 +9,21 @@ const menuTitles: Array<Record<string, any>> = [
         },
         children: []
     }, {
-        name: "About",
+        name: "Revenue",
         description: "",
-        icon: "mdi-information",
+        icon: "mdi-cash",
         path: {
-            to: "/",
-            name: "About"
+            to: "/revenue",
+            name: "Revenue"
+        },
+        children: []
+    }, {
+        name: "Inventory",
+        description: "",
+        icon: "mdi-cash",
+        path: {
+            to: "/inventory",
+            name: "Inventory"
         },
         children: []
     }]

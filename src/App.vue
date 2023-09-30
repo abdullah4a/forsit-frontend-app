@@ -17,10 +17,6 @@ export default {
             return generalStorage.getLocalItem(theme);
         }
   },
-  created() {
-    // that will set initial theme for app in Local storage
-    generalStorage.setLocalItem(localStorageKeys.CURRENT_THEME, "light")
-  },
 };
 </script>
 

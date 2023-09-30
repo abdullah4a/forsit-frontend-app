@@ -1,6 +1,6 @@
 <template>
-    <v-card>
-        <v-row>
+    <v-card v-if="controlAble||searchAble">
+        <v-row class="mx-1">
             <v-col v-if="searchAble">
                 <AppDataSearchBar :search="searched" @searched:input="search"></AppDataSearchBar>
             </v-col>
@@ -15,12 +15,25 @@
 import AppDataSearchBar from './AppDataSearchBar.vue';
 
 export default {
+    computed:{
+        controlAble(){
+            return this.showControls
+        }
+    },
     components: { AppDataSearchBar },
     props: {
         searchAble: {
             type: Boolean,
             default: false
-        }
+        },
+        searchQuery: {
+            type: String,
+            default: ''
+        },
+        showControls: {
+            type: Boolean,
+            default: false
+        },
     },
     data() {
         return {
@@ -30,7 +43,7 @@ export default {
     methods: {
         search(query: string) {
             this.searched = query
-            this.$emit('search:input')
+            this.$emit('search:input', query)
         }
     },
 }

@@ -1,8 +1,9 @@
 <template>
-    <v-text-field v-model="searched" label="Search" append-inner-icon="mdi-magnify"></v-text-field>
+    <v-text-field v-model="searched" rounded label="Search" variant="filled" prepend-inner-icon="mdi-magnify" clearable
+        persistent-clear clear-icon="mdi-close" @input="searchedQuery"></v-text-field>
 </template>
 
-<script>
+<script lang="ts">
 export default {
     emits: ['searched:input'],
     props: {
