@@ -17,6 +17,15 @@ const menuTitles: Array<Record<string, any>> = [
             name: "Revenue"
         },
         children: []
+    }, {
+        name: "Inventory",
+        description: "",
+        icon: "mdi-cash",
+        path: {
+            to: "/inventory",
+            name: "Inventory"
+        },
+        children: []
     }]
 
 export default menuTitles;
