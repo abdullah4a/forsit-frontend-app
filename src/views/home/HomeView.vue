@@ -1,24 +1,9 @@
 <template>
-  <AppData title="Home">
+  <AppData title="Dashboard">
     <template #content>
-      <v-row>
-        <v-col>
-          <v-card height="500">
-          <v-card-title>chart</v-card-title>
-          <v-card-item>
-            <BarChart :points="chartData" :chartOption="chartOptions" />
-          </v-card-item>
-        </v-card>
-        </v-col>
-        <v-col>
-          <v-card height="500">
-          <v-card-title>chart</v-card-title>
-          <v-card-text>
-            <LineChart :points="chartData" :chartOption="chartOptions" />
-          </v-card-text>
-        </v-card>
-        </v-col>
-      </v-row>
+      <div>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, fuga facilis? Voluptatem tenetur nemo labore totam facilis dolor excepturi quis ab, nisi sit numquam nihil laborum quas consequatur blanditiis suscipit.
+      </div>
     </template>
   </AppData>
 </template>
