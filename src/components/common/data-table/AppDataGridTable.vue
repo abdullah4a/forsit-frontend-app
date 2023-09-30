@@ -1,7 +1,4 @@
 <template>
-  <div class="text-right my-1">
-    <v-btn icon="mdi-pencil" disabled @click="rowSelection" size="small" />
-  </div>
   <ag-grid-vue :class="!isDarkTheme ? 'ag-theme-alpine' : 'ag-theme-alpine-dark'" style="height: 500px"
     :columnDefs="dataTableHeaders" :rowData="dataTableData" :defaultColDef="dataTableFilters" rowSelection="single"
     animateRows="true" @grid-ready="onGridReady" @cell-clicked="cellWasClicked">
@@ -35,7 +32,19 @@ export default {
       return this.headers
     },
     dataTableFilters() {
-      return this.headers
+      const defaultColDef=this.defaultColDef
+      if(defaultColDef){
+        const filterParams={buttons:[]}
+       if(this.showConfirmBtnFiler){
+        filterParams['buttons'].push('apply')
+       }
+       if(this.showClearBtnFiler){
+        filterParams['buttons'].push('clear')
+       }
+       defaultColDef['filterParams']=filterParams
+      }
+      return defaultColDef
+
     }
   },
   props: {
@@ -48,9 +57,15 @@ export default {
       required: true
     },
     defaultColDef: {
-      type: Array,
+      type: Object,
       required: true
     },
+    showConfirmBtnFiler:{
+      type: Boolean,
+    },
+    showClearBtnFiler:{
+      type: Boolean,
+    }
   },
   data() {
     return {
