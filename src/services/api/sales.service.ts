@@ -2,7 +2,7 @@
 import { sales } from '../json/sales'
 const SalesAPI = {
 
-    getSaleList(params) {
+    getSaleList() {
         return new Promise<Array<Record<string, any>>>((resolve) => resolve(sales));
     },
     getTotalNumOfSales() {
@@ -25,7 +25,7 @@ const SalesAPI = {
         const index=sales.findIndex(sale=>sale.id===id)
         if (index>0) {
             sales.splice(index, 1)
-            return new Promise<Boolean>((resolve) => resolve(true));
+            return new Promise<boolean>((resolve) => resolve(true));
         }
         else
         return new Promise<Record<string, any>>((resolve, reject) => reject("Not Found"))

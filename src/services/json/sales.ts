@@ -25,5 +25,14 @@ export const sales = [
     "quantity": 2,
     "unitPrice": 30,
     "totalAmount": 60
+  },
+  {
+    "id":4,
+    "orderNumber": "ORD003",
+    "customerName": "Alice Johnson",
+    "product": "Product C",
+    "quantity": 2,
+    "unitPrice": 30,
+    "totalAmount": 60
   }
 ]
