@@ -20,7 +20,7 @@ const menuTitles: Array<Record<string, any>> = [
     }, {
         name: "Inventory",
         description: "",
-        icon: "mdi-cash",
+        icon: "mdi-check-all",
         path: {
             to: "/inventory",
             name: "Inventory"
