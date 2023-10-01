@@ -3,6 +3,9 @@
     <v-col cols="12" md="1">
       <v-combobox v-model="paginationPageSize" :items="getPageSizes" label="Items per Page" :multiple="false" />
     </v-col>
+    <v-col class="text-right" cols="12" md="11">
+      <v-btn v-if="showRowUpdate" prepend-icon="mdi-pencil" text="update row" @click="rowSelection" variant="plain" />
+    </v-col>
   </v-row>
   <ag-grid-vue :class="!isDarkTheme ? 'ag-theme-alpine' : 'ag-theme-alpine-dark'" style="height: 500px"
     :columnDefs="dataTableHeaders" :rowData="dataTableData" :defaultColDef="dataTableFilters" rowSelection="single"
@@ -80,7 +83,8 @@ export default {
     return {
       gridApi: null,
       gridColumnApi: null,
-      paginationPageSize: 5
+      paginationPageSize: 10,
+      showRowUpdate:false
     }
   }, methods: {
     onGridReady(params) {
@@ -90,6 +94,7 @@ export default {
     cellWasClicked(event: any) {
       const { value } = event
       this.$emit('cell-clicked', value)
+      this.showRowUpdate=true
     },
     rowSelection() {
       const selectedRows = this.gridApi.getSelectedRows();

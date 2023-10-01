@@ -15,7 +15,7 @@
                 </v-combobox>
             </v-col>
             <v-col cols="1">
-                <v-combobox v-model="chartType" :items="" label="Chart Type" :multiple="false" />
+                <v-combobox v-model="chartType" :items="getChartTypes" label="Chart Type" :multiple="false" />
             </v-col>
         </v-row>
         <v-card v-if="chartData">
@@ -31,6 +31,7 @@ import LineChartComponent from "../../../components/common/charts/LineChartCompo
 import PieChartComponent from "../../../components/common/charts/PieChartComponent.vue"
 import SalesAPI from "@/services/api/sales.service"
 import OrdersAPI from "@/services/api/orders.service"
+import InventoryAPI from "@/services/api/inventory.service"
 import { formatEndDate, formatStartDate } from "@/utils/formattedDates";
 
 
@@ -40,7 +41,7 @@ export default {
             showChart: false,
             chartData: undefined,
             chartOption: undefined,
-            chartFor: ['orders', 'sales'],
+            chartFor: ['orders', 'sales', 'inventory'],
             chartType: 'bar',
             chartForVal: 'orders',
             chartDate: "day",
@@ -93,6 +94,9 @@ export default {
             if (this.chartForVal === 'sales') {
                 await this.getSalesAndGenerateChart(params)
             }
+            if (this.chartForVal === 'inventory') {
+                await this.getInventoryAndGenerateChart(params)
+            }
         },
         async getOrdersAndGenerateChart(params?: Record<string, any>) {
             const dataAndDate = await OrdersAPI.getLabeledDataForChart(params)
@@ -104,6 +108,12 @@ export default {
             const unParsedData = await SalesAPI.getLabeledDataForChart(params)
             const labels = Object.keys(unParsedData);
             const data = labels.map(date => unParsedData[date]);
+            this.updateChart(labels, data)
+        },
+        async getInventoryAndGenerateChart(params?: Record<string, any>) {
+            const dataAndDate = await InventoryAPI.getLabeledDataForChart(params)
+            const labels = Object.keys(dataAndDate);
+            const data = labels.map(date => dataAndDate[date]);
             this.updateChart(labels, data)
         },
         checkChartFor() {

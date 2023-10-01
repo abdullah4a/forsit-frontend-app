@@ -18,7 +18,8 @@
     <template v-slot:append>
       <v-list>
         <v-list-item prepend-icon="mdi-theme-light-dark">
-          <v-switch v-model="model" hide-details :label="`${model?'dark':'light'}`" @update:model-value="changeTheme"></v-switch>
+          <v-switch v-model="model" hide-details :label="`${model ? 'dark' : 'light'}`"
+            @update:model-value="changeTheme"></v-switch>
         </v-list-item>
         <v-list-item prepend-icon="mdi-logout" title="Logout" :to="{ name: 'Logout' }"></v-list-item>
       </v-list>
@@ -47,9 +48,13 @@ export default {
   },
   methods: {
     changeTheme() {
-      const theme=this.model?'dark':"light"
+      const theme = this.model ? 'dark' : "light"
       generalStorage.setLocalItem(localStorageKeys.CURRENT_THEME, theme)
     }
+  },
+  created() {
+    const theme = generalStorage.getLocalItem(localStorageKeys.CURRENT_THEME)
+    this.model = theme === 'dark'
   },
 }
 </script>

@@ -4,30 +4,38 @@
     <v-text-field v-model="product['price']" label="Price" type="number"></v-text-field>
     <v-text-field v-model="product['quantity']" label="Initial Stock" type="number"></v-text-field>
     <v-text-field v-model="product['category']" label="Product Category"></v-text-field>
+    <v-card-actions class="d-flex justify-space-around">
+        <v-btn color="primaryDeep" @click="closeModal">Close</v-btn>
+        <v-btn color="primaryDeep" @click="sendStoredData">Save</v-btn>
+      </v-card-actions>
 </template>
 
 <script lang="ts">
-    import ProductAPI from '@/services/api/products.service'
+import store from '@/store'
 export default {
-    emits: ['confirm'],
+    emits: ['confirm', 'close'],
     data() {
         return {
             product: {}
         }
     },
-    async beforeUnmount() {
-        if (this.product) {
-            try {
-                const productToSubmit={...this.product}
-                productToSubmit['price']=Number(this.product['price'])
-                productToSubmit['quantity']=Number(this.product['quantity'])
-                this.product = await ProductAPI.createProducts(productToSubmit)
-            } catch (error) {
-                throw new Error(error);
+    methods: {
+        async sendStoredData() {
+            if (this.product) {
+                try {
+                    const productToSubmit = { ...this.product }
+                    productToSubmit['price'] = Number(this.product['price'])
+                    productToSubmit['quantity'] = Number(this.product['quantity'])
+                    this.product = await store.dispatch('product/saveProduct', productToSubmit)
+                } catch (error) {
+                    throw new Error(error);
+                }
             }
+            this?.$emit('confirm', this.product)
+        },
+        async closeModal() {
+            this?.$emit('close', this.product)
         }
-        
-        this.$emit('confirm', this.product)
-    }
+    },
 }
 </script>
