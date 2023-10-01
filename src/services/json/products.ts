@@ -1,6 +1,6 @@
 export const products = [
   {
-    "product_id": 1,
+    "product_id": 101,
     "name": "Product 1",
     "category": "Product 1",
     "description": "This is a product description.",
@@ -8,7 +8,7 @@ export const products = [
     "quantity": 100
   },
   {
-    "product_id": 2,
+    "product_id": 102,
     "name": "Product 2",
     "category": "Product 2",
     "description": "This is a product description.",
@@ -16,7 +16,7 @@ export const products = [
     "quantity": 103
   },
   {
-    "product_id": 3,
+    "product_id": 103,
     "name": "Product 3",
     "category": "Product 3",
     "description": "This is a product description.",
@@ -24,7 +24,7 @@ export const products = [
     "quantity": 100
   },
   {
-    "product_id": 4,
+    "product_id": 104,
     "name": "Product 4",
     "category": "Product 4",
     "description": "This is a product description.",
