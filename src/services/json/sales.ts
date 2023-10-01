@@ -6,7 +6,8 @@ export const sales = [
     "product": "Product A",
     "quantity": 5,
     "unitPrice": 50,
-    "totalAmount": 250
+    "totalAmount": 250,
+    "soldDate": "2021-09-20",
   },
   {
     "id":2,
@@ -15,7 +16,8 @@ export const sales = [
     "product": "Product B",
     "quantity": 3,
     "unitPrice": 40,
-    "totalAmount": 120
+    "totalAmount": 120,
+    "soldDate": "2021-09-12",
   },
   {
     "id":3,
@@ -24,7 +26,8 @@ export const sales = [
     "product": "Product C",
     "quantity": 2,
     "unitPrice": 30,
-    "totalAmount": 60
+    "totalAmount": 60,
+    "soldDate": "2021-09-12",
   },
   {
     "id":4,
@@ -33,6 +36,7 @@ export const sales = [
     "product": "Product C",
     "quantity": 2,
     "unitPrice": 30,
-    "totalAmount": 60
+    "totalAmount": 60,
+    "soldDate": "2021-09-20",
   }
 ]
