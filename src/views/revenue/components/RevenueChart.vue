@@ -2,7 +2,7 @@
     <v-sheet>
         <v-row>
             <v-col cols="2">
-                <v-combobox v-model="chartForVal" :items="chartFor" label="Select For" :multiple="false"
+                <v-combobox v-model="chartForVal" :items="chartFor" label="Chart Of" :multiple="false"
                     @update:model-value="checkChartFor">
                 </v-combobox>
             </v-col>
@@ -10,12 +10,12 @@
 
             </v-col>
             <v-col cols="2">
-                <v-combobox v-model="chartDate" :items="['day', 'week', 'month', 'year']" label="Date" :multiple="false"
+                <v-combobox v-model="chartDate" :items="getDateFilters" label="Date" :multiple="false"
                     @update:model-value="evaluateDateAndGet">
                 </v-combobox>
             </v-col>
             <v-col cols="1">
-                <v-combobox v-model="chartType" :items="['bar', 'line']" label="Chart Type" :multiple="false" />
+                <v-combobox v-model="chartType" :items="" label="Chart Type" :multiple="false" />
             </v-col>
         </v-row>
         <v-card v-if="chartData">
@@ -31,7 +31,7 @@ import LineChartComponent from "../../../components/common/charts/LineChartCompo
 import PieChartComponent from "../../../components/common/charts/PieChartComponent.vue"
 import SalesAPI from "@/services/api/sales.service"
 import OrdersAPI from "@/services/api/orders.service"
-import { formatEndDate, formatStartDate } from "@/utils/formatedDates";
+import { formatEndDate, formatStartDate } from "@/utils/formattedDates";
 
 
 export default {
@@ -56,6 +56,12 @@ export default {
         getChart() {
             const charts = { bar: BarChartComponent, line: LineChartComponent, pie: PieChartComponent }
             return charts[this.chartType]
+        },
+        getDateFilters() {
+            return ['day', 'week', 'month', 'year']
+        },
+        getChartTypes() {
+            return ['bar', 'line']
         }
     },
     created() {
