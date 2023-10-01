@@ -16,8 +16,7 @@
 </template>
 
 <script lang="ts">
-// import InventoryAPI from '@/services/api/inventory.service'
-import ProductAPI from '@/services/api/products.service'
+import InventoryAPI from '@/services/api/inventory.service'
 
 import AddProduct from './modal-components/AddProduct.vue'
 import { markRaw } from 'vue'
@@ -51,7 +50,7 @@ export default {
   },
   methods: {
     async getItemsAndDisplay() {
-      const inventoryItems = await ProductAPI.getProductsList()
+      const inventoryItems = await InventoryAPI.getInventoryList()
       this.tableHeaders = this.getNormalizeHeaders(inventoryItems)
       this.tableData = inventoryItems
       this.tableFilters = {

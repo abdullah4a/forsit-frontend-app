@@ -18,9 +18,10 @@ export default {
     async beforeUnmount() {
         if (this.product) {
             try {
-                this.product = await ProductAPI.createProducts(this.product)
-                console.log(this.product);
-                
+                const productToSubmit={...this.product}
+                productToSubmit['price']=Number(this.product['price'])
+                productToSubmit['quantity']=Number(this.product['quantity'])
+                this.product = await ProductAPI.createProducts(productToSubmit)
             } catch (error) {
                 throw new Error(error);
             }
