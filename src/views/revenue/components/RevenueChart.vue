@@ -15,7 +15,7 @@
                 </v-combobox>
             </v-col>
             <v-col cols="1">
-                <v-combobox v-model="chartType" :items="" label="Chart Type" :multiple="false" />
+                <v-combobox v-model="chartType" :items="getChartTypes" label="Chart Type" :multiple="false" />
             </v-col>
         </v-row>
         <v-card v-if="chartData">
