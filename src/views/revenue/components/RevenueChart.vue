@@ -81,7 +81,6 @@ export default {
             this.chartOption = { responsive: true }
         },
         async getDataForChart(params?: Record<string, any>) {
-            console.log('get data for char')
             if (this.chartForVal === 'orders') {
                 await this.getOrdersAndGenerateChart(params)
             }
@@ -108,8 +107,8 @@ export default {
             const params = {}
             const date = new Date().toLocaleDateString()
             params['startDate'] = formatStartDate(date, this.chartDate)
-            params['endDate'] = formatEndDate(date, this.chartDate)  
-            this.getDataForChart(params)          
+            params['endDate'] = formatEndDate(date, this.chartDate)
+            this.getDataForChart(params)
         }
     }
 }

@@ -1,7 +1,13 @@
 <template>
+  <v-row>
+    <v-col cols="12" md="1">
+      <v-combobox v-model="paginationPageSize" :items="getPageSizes" label="Select For" :multiple="false" />
+    </v-col>
+  </v-row>
   <ag-grid-vue :class="!isDarkTheme ? 'ag-theme-alpine' : 'ag-theme-alpine-dark'" style="height: 500px"
     :columnDefs="dataTableHeaders" :rowData="dataTableData" :defaultColDef="dataTableFilters" rowSelection="single"
-    animateRows="true" @grid-ready="onGridReady" @cell-clicked="cellWasClicked">
+    animateRows="true" @grid-ready="onGridReady" @cell-clicked="cellWasClicked" :pagination="true"
+    :paginationPageSize="paginationPageSize">
     <!-- @getSelectedRow="rowSelection" -->
   </ag-grid-vue>
 </template>
@@ -15,6 +21,7 @@ import { AgGridVue } from "ag-grid-vue3";
 // other imports
 import { localStorageKeys } from "@/utils/enum/localStorageKeys.enum";
 import { generalStorage } from "@/storages/generalStorage";
+import { pageSizes } from "@/utils/tablePageSizes";
 
 export default {
   name: "AppDataGridTable",
@@ -32,19 +39,21 @@ export default {
       return this.headers
     },
     dataTableFilters() {
-      const defaultColDef=this.defaultColDef
-      if(defaultColDef){
-        const filterParams={buttons:[]}
-       if(this.showConfirmBtnFiler){
-        filterParams['buttons'].push('apply')
-       }
-       if(this.showClearBtnFiler){
-        filterParams['buttons'].push('clear')
-       }
-       defaultColDef['filterParams']=filterParams
+      const defaultColDef = this.defaultColDef
+      if (defaultColDef) {
+        const filterParams = { buttons: [] }
+        if (this.showConfirmBtnFiler) {
+          filterParams['buttons'].push('apply')
+        }
+        if (this.showClearBtnFiler) {
+          filterParams['buttons'].push('clear')
+        }
+        defaultColDef['filterParams'] = filterParams
       }
       return defaultColDef
-
+    },
+    getPageSizes() {
+      return pageSizes
     }
   },
   props: {
@@ -60,10 +69,10 @@ export default {
       type: Object,
       required: true
     },
-    showConfirmBtnFiler:{
+    showConfirmBtnFiler: {
       type: Boolean,
     },
-    showClearBtnFiler:{
+    showClearBtnFiler: {
       type: Boolean,
     }
   },
@@ -71,6 +80,7 @@ export default {
     return {
       gridApi: null,
       gridColumnApi: null,
+      paginationPageSize: 5
     }
   }, methods: {
     onGridReady(params) {
