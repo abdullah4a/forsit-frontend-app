@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" md="1">
-      <v-combobox v-model="paginationPageSize" :items="getPageSizes" label="Select For" :multiple="false" />
+      <v-combobox v-model="paginationPageSize" :items="getPageSizes" label="Items per Page" :multiple="false" />
     </v-col>
   </v-row>
   <ag-grid-vue :class="!isDarkTheme ? 'ag-theme-alpine' : 'ag-theme-alpine-dark'" style="height: 500px"
