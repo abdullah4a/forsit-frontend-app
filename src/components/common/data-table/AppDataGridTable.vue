@@ -7,7 +7,7 @@
       <v-btn v-if="showRowUpdate" prepend-icon="mdi-pencil" text="update row" @click="rowSelection" variant="plain" />
     </v-col>
   </v-row>
-  <ag-grid-vue :class="!isDarkTheme ? 'ag-theme-alpine' : 'ag-theme-alpine-dark'" style="height: 500px"
+  <ag-grid-vue ref="agGrid" :class="!isDarkTheme ? 'ag-theme-alpine' : 'ag-theme-alpine-dark'" style="height: 500px"
     :columnDefs="dataTableHeaders" :rowData="dataTableData" :defaultColDef="dataTableFilters" rowSelection="single"
     animateRows="true" @grid-ready="onGridReady" @cell-clicked="cellWasClicked" :pagination="true"
     :paginationPageSize="paginationPageSize">
@@ -31,12 +31,13 @@ export default {
   components: {
     AgGridVue,
   },
+  emits:['selected-row', 'cell-clicked'],
   computed: {
     isDarkTheme() {
       return generalStorage.getLocalItem(localStorageKeys.CURRENT_THEME) === 'dark'
     },
     dataTableData() {
-      return this.items
+      return this.rowData
     },
     dataTableHeaders() {
       return this.headers
@@ -90,7 +91,8 @@ export default {
       gridApi: null,
       gridColumnApi: null,
       paginationPageSize: 10,
-      showRowUpdate:false
+      showRowUpdate:false,
+      rowData:[]
     }
   }, methods: {
     onGridReady(params) {
@@ -106,6 +108,17 @@ export default {
       const selectedRows = this.gridApi.getSelectedRows();
       this.$emit('selected-row', selectedRows)
     }
+  },
+  watch: {
+    items(items) {
+      this.rowData = items;
+      if (this.gridApi) {
+      this.gridApi.setRowData(items);
+      }
+    },
+  },
+  mounted() {
+    this.gridApi = this.$refs.agGrid.api;
   },
 };
 </script>
