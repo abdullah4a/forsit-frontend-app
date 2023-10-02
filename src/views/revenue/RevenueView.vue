@@ -16,8 +16,13 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col>
+        <v-col cols="12">
           <RevenueChart />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <RevenueTableComponent />
         </v-col>
       </v-row>
     </template>
@@ -30,6 +35,7 @@ import OrdersComponent from "./components/OrdersComponent.vue"
 import InventoryComponent from "./components/InventoryComponent.vue"
 import ProductsComponent from "./components/ProductsComponent.vue"
 import RevenueChart from "./components/RevenueChart.vue"
+import RevenueTableComponent from "./components/RevenueTableComponent.vue"
 import { chartData, chartOptions } from '../../utils/chat-config'
 export default {
   name: 'RevenueView',
@@ -38,7 +44,8 @@ export default {
     OrdersComponent,
     InventoryComponent,
     ProductsComponent,
-    RevenueChart
+    RevenueChart,
+    RevenueTableComponent
   },
   computed: {
     chartData() {
