@@ -23,24 +23,10 @@ export const actions: ActionTree<AuthState, any> = {
 
   async updateProduct({ commit, dispatch }, payload) {
     try {
-      const resp = await ProductsAPI.updateProducts(payload.product_id, payload);
+      const { product, inventory } = payload
+      const resp = await ProductsAPI.updateProducts(product.product_id, product);
       commit(UPDATE_PRODUCT, resp);
-      const invItem = this.state.inventories.filter(invItem => invItem.product_id === payload.product_id)
-      if (invItem.length) {
-        for (let index = 0; index < invItem.length; index++) {
-          const element = invItem[index];
-          const inventoryItem = {
-            "inventory_id": element.inventory_id,
-            "product_id": payload.product_id,
-            "warehouse_id": element.warehouse_id,
-            "batch_number": element.batch_number,
-            "supplier_id": element.supplier_id,
-            "quantity": payload.quantity,
-            "date_updated": moment(new Date()).format("YYYY-MM-DD")
-
-          }
-        }
-      }
+      const inventoryItem = await InventoryAPI.updateInInventory(inventory.inventory_id, inventory)
       return resp;
     } catch (error: any) {
       return error.response.data;

@@ -1,54 +1,59 @@
 
-<script lang="ts">
-import InventoryAPI from '@/services/api/inventory.service'
+<script lang="ts" setup>
 
-import AddProduct from './modal-components/AddProduct.vue'
-import { markRaw } from 'vue'
+import AddProduct from './modal-components/AddProductAndInventory.vue'
+import UpdateProductAndInventory from './modal-components/UpdateProductAndInventory.vue'
+import { markRaw, ref } from 'vue'
 import { getNormalizeHeaders } from '@/helpers/normalizeHeader'
+import { useStore } from 'vuex';
 // Data
+const store = useStore()
 const componentNonReactive = markRaw({
-  addProduct: AddProduct,
+  AddProduct,
+  UpdateProductAndInventory
 })
-export default {
-  name: 'InventoryView',
-  data() {
-    return {
-      tableHeaders: undefined,
-      tableData: undefined,
-      tableFilters: undefined,
-      modalData: undefined
-    }
-  },
-  created() {
-    this.getItemsAndDisplay()
-  },
-  methods: {
-    async getItemsAndDisplay() {
-      const inventoryItems = await this.$store.dispatch('product/getInventories')
-      this.tableHeaders = getNormalizeHeaders(inventoryItems)
-      this.tableData = inventoryItems
-      this.tableFilters = {
-        sortable: true,
-        filter: true,
-        flex: 1,
-        floatingFilter: true,
-      }
-    },
-    openModal() {
-      this.modalData = { title: "Add Product", component: componentNonReactive.addProduct, propData: null, show: true }
-    },
-    closeModal() {
-      this.modalData = { title: "", component: null, propData: null, show: false }
-    },
-    updateRow(row: Array<Record<string, any>>) {
-      console.log(row);
-    },
-    async confirmItem(item: Record<string, any>) {
-      this.$forceUpdate();
-      this.getItemsAndDisplay()
-      this.closeModal()
-    },
-  },
+const tableHeaders = ref([])
+const tableData = ref([])
+const show = ref(false)
+const tableFilters = ref({})
+const modalData = {
+  title: "",
+  component: null,
+  propData: null,
+}
+const getItemsAndDisplay = async () => {
+  const inventoryItems = await store.dispatch('product/getInventories')
+  tableHeaders.value = getNormalizeHeaders(inventoryItems)
+  tableData.value = inventoryItems
+  tableFilters.value = {
+    sortable: true,
+    filter: true,
+    flex: 1,
+    floatingFilter: true,
+  }
+}
+getItemsAndDisplay()
+const openModal = () => {
+  show.value = true
+  modalData.title = "Add Product"
+  modalData.component = componentNonReactive.AddProduct
+}
+const closeModal = () => {
+  show.value = false
+  modalData.title = ""
+  modalData.component = null
+  modalData.propData = null
+}
+
+const updateRow = (row: Array<Record<string, any>>) => {
+  modalData.propData = row
+  show.value = true
+  modalData.title = "Update Product"
+  modalData.component = componentNonReactive.UpdateProductAndInventory
+}
+const confirmItem = (item: Record<string, any>) => {
+  getItemsAndDisplay()
+  closeModal()
 }
 </script>
 
@@ -60,10 +65,13 @@ export default {
       </div>
     </template>
     <template #content>
-      <AppDataTable :items="tableData" :headers="tableHeaders" :defaultColDef="tableFilters" @selected-row="updateRow" />
+      <v-card v-if="tableData && tableHeaders && tableFilters">
+        <AppDataTable :items="tableData" :headers="tableHeaders" :defaultColDef="tableFilters"
+          @selected-row="updateRow" />
+      </v-card>
     </template>
   </AppData>
-  <v-dialog v-if="modalData" v-model="modalData.show" width="auto" persistent>
+  <v-dialog v-if="modalData" v-model="show" width="auto" persistent>
     <v-card width="800px">
       <v-card-title>
         <v-list-item class="w-100">
@@ -81,10 +89,11 @@ export default {
           </template>
         </v-list-item>
       </v-card-title>
-      <v-card-item>
-        <component :is="modalData.component" v-if="modalData.propData !== null" :model="modalData.propData"
-          @confirm="confirmItem" />
-        <component :is="modalData.component" v-else @confirm="confirmItem" @close="closeModal" />
+      <v-card-item v-if="modalData.propData !== null">
+        <component :is="modalData.component" :model="modalData.propData" @confirm="confirmItem" />
+      </v-card-item>
+      <v-card-item v-else>
+        <component :is="modalData.component" @confirm="confirmItem" @close="closeModal" />
       </v-card-item>
     </v-card>
   </v-dialog>

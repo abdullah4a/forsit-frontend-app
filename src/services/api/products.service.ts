@@ -26,6 +26,13 @@ const ProductsAPI = {
         else
             return new Promise<Record<string, any>>((resolve, reject) => reject("Not Found"))
     },
+    getProductById(id: number) {
+        const product = products.filter(product => product.product_id === id)[0]
+        if (product) {
+            return new Promise<Record<string, any>>((resolve) => resolve(product));
+        } else
+            return new Promise<Record<string, any>>((resolve, reject) => reject("Not Found"))
+    },
     deleteProducts(id: number) {
         const index = products.findIndex(sale => sale.product_id === id)
         if (index > 0) {

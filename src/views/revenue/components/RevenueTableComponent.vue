@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card v-if="tableData && tableHeaders && tableFilters">
         <v-card-title>
             <template #default>
                 Revenues
