@@ -1,24 +1,27 @@
 <template>
     <v-sheet>
-        <v-row>
-            <v-col cols="2">
-                <v-combobox v-model="chartForVal" :items="chartFor" label="Chart Of" :multiple="false"
-                    @update:model-value="checkChartFor">
-                </v-combobox>
-            </v-col>
-            <v-col cols="7">
-
-            </v-col>
-            <v-col cols="2">
-                <v-combobox v-model="chartDate" :items="getDateFilters" label="Date" :multiple="false"
-                    @update:model-value="evaluateDateAndGet">
-                </v-combobox>
-            </v-col>
-            <v-col cols="1">
-                <v-combobox v-model="chartType" :items="getChartTypes" label="Chart Type" :multiple="false" />
-            </v-col>
-        </v-row>
-        <v-card v-if="chartData">
+        <div class="text-right">
+            <v-btn :text="!showChart?'show chart':'hide chart'" variant="plain" @click="toggleChart"/>
+        </div>
+        <v-card v-if="chartData&&showChart">
+            <v-row class="ma-2">
+                <v-col cols="2">
+                    <v-combobox v-model="chartForVal" :items="chartFor" label="Chart Of" :multiple="false"
+                        @update:model-value="checkChartFor">
+                    </v-combobox>
+                </v-col>
+                <v-col cols="7">
+    
+                </v-col>
+                <v-col cols="2">
+                    <v-combobox v-model="chartDate" :items="getDateFilters" label="Date" :multiple="false"
+                        @update:model-value="evaluateDateAndGet">
+                    </v-combobox>
+                </v-col>
+                <v-col cols="1">
+                    <v-combobox v-model="chartType" :items="getChartTypes" label="Chart Type" :multiple="false" />
+                </v-col>
+            </v-row>
             <component :is="getChart" :points="dataPoints" :chartOption="chartOptions" />
         </v-card>
     </v-sheet>
@@ -125,6 +128,9 @@ export default {
             params['startDate'] = formatStartDate(date, this.chartDate)
             params['endDate'] = formatEndDate(date, this.chartDate)
             this.getDataForChart(params)
+        },
+        toggleChart(){
+            this.showChart=!this.showChart
         }
     }
 }
