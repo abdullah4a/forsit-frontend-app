@@ -31,10 +31,10 @@ export default {
                     throw new Error(error);
                 }
             }
-            this?.$emit('confirm', this.product)
+            this.$emit('confirm', this.product)
         },
-        async closeModal() {
-            this?.$emit('close', this.product)
+        closeModal() {
+            this.$emit('close')
         }
     },
 }
