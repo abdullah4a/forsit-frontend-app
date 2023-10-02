@@ -45,11 +45,14 @@ export default {
       const defaultColDef = this.defaultColDef
       if (defaultColDef) {
         const filterParams = { buttons: [] }
-        if (this.showConfirmBtnFiler) {
+        if (this.showConfirmBtnFilter) {
           filterParams['buttons'].push('apply')
         }
-        if (this.showClearBtnFiler) {
+        if (this.showClearBtnFilter) {
           filterParams['buttons'].push('clear')
+        }
+        if (this.showResetBtnFilter) {
+          filterParams['buttons'].push('reset')
         }
         defaultColDef['filterParams'] = filterParams
       }
@@ -72,10 +75,13 @@ export default {
       type: Object,
       required: true
     },
-    showConfirmBtnFiler: {
+    showConfirmBtnFilter: {
       type: Boolean,
     },
-    showClearBtnFiler: {
+    showClearBtnFilter: {
+      type: Boolean,
+    },
+    showResetBtnFilter:{
       type: Boolean,
     }
   },

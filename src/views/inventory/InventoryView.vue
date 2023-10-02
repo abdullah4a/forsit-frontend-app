@@ -4,6 +4,7 @@ import InventoryAPI from '@/services/api/inventory.service'
 
 import AddProduct from './modal-components/AddProduct.vue'
 import { markRaw } from 'vue'
+import { getNormalizeHeaders } from '@/helpers/normalizeHeader'
 // Data
 const componentNonReactive = markRaw({
   addProduct: AddProduct,
@@ -24,7 +25,7 @@ export default {
   methods: {
     async getItemsAndDisplay() {
       const inventoryItems = await this.$store.dispatch('product/getInventories')
-      this.tableHeaders = this.getNormalizeHeaders(inventoryItems)
+      this.tableHeaders = getNormalizeHeaders(inventoryItems)
       this.tableData = inventoryItems
       this.tableFilters = {
         sortable: true,
@@ -32,11 +33,6 @@ export default {
         flex: 1,
         floatingFilter: true,
       }
-    },
-    getNormalizeHeaders(inventoryItems) {
-      const keys = inventoryItems.flatMap(item => Object.keys(item))
-      const headers = [...new Set(keys)]
-      return headers.map((header: string) => ({ headerName: header.split("_").join(" ").toLocaleUpperCase(), field: header }))
     },
     openModal() {
       this.modalData = { title: "Add Product", component: componentNonReactive.addProduct, propData: null, show: true }

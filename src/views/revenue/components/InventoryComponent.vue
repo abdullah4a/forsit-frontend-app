@@ -2,7 +2,7 @@
     <v-sheet>
         <v-card>
             <v-card-text class="text-md-center text-sm-left my-16">
-                <p class="text-h5">{{ "Quantity of Products in Inventory: " }}</p>
+                <p class="text-h5">{{ "Products in Inventory: " }}</p>
                 <p class="text-h5">{{ getTotalNumOfInventoryItems }}</p>
             </v-card-text>
         </v-card>
