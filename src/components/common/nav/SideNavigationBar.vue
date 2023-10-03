@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer expand-on-hover rail>
+  <v-navigation-drawer v-model="sideMenu" >
     <v-list>
       <v-list-item :prepend-avatar="getUser.image" :title="getUser.name" :subtitle="getUser.email"></v-list-item>
     </v-list>
@@ -12,7 +12,7 @@
         <v-list-item v-for="({ name, icon, path }, i) in menu.children" :key="i" :value="name" :title="name"
           :prepend-icon="icon" :to="{ name: path.name }"></v-list-item>
       </v-list-group>
-      <v-list-item :prepend-icon="menu.icon" :title="menu.name" :value="menu.name" v-else
+      <v-list-item :prepend-icon="menu.icon" :title="menu.name" :class="{ 'selected': menu.path.name}" v-else
         :to="{ name: menu.path.name }"></v-list-item>
     </v-list>
     <template v-slot:append>
@@ -41,9 +41,16 @@ export default {
       return this.menuTitles
     }
   },
+  props: {
+    value: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
-      model: false
+      model: false,
+      sideMenu: false
     }
   },
   methods: {
@@ -54,9 +61,15 @@ export default {
     }
   },
   created() {
+    this.sideMenu = this.value
     const theme = generalStorage.getLocalItem(localStorageKeys.CURRENT_THEME)
     this.model = theme === 'dark'
   },
+  watch:{
+    'value': function(newVal){
+      this.sideMenu=newVal
+    }
+  }
 }
 </script>
 
