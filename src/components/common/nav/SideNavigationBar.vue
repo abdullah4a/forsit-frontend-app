@@ -50,6 +50,7 @@ export default {
     changeTheme() {
       const theme = this.model ? 'dark' : "light"
       generalStorage.setLocalItem(localStorageKeys.CURRENT_THEME, theme)
+      window.location.reload()
     }
   },
   created() {
