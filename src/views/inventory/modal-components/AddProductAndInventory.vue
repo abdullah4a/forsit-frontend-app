@@ -56,7 +56,6 @@ export default {
             if (this.product) {
                 const result = await this.$refs["form"].validate();
                 if (result) {
-                    console.log("Avatar", this.product)
                     try {
                         const productToSubmit = { ...this.product }
                         productToSubmit['price'] = Number(this.product['price'])

@@ -7,7 +7,7 @@
         </v-card-title>
         <template #append>
             <div>
-                Max Sold: {{ maxSold.name}}
+                Max Sold: {{ maxSold.name }}
                 <v-btn :icon="'mdi-arrow-up'" size="small" variant="plain" :ripple="false"></v-btn>
             </div>
         </template>
@@ -21,23 +21,33 @@
 </template>
   
 <script lang="ts">
-import {getMaxAndMinSoldProducts} from "@/helpers/getProductInsights"
+import { getMaxAndMinSoldProducts } from "@/helpers/getProductInsights"
 export default {
     name: 'ForecastingCard',
     data() {
         return {
             maxSold: undefined,
-            minSold: undefined
+            minSold: undefined,
+            interval: 1 * 1000
         }
     },
-    methods:{
-        async getProductInsights(){
-            const {maxSold}=await getMaxAndMinSoldProducts()
-            this.maxSold=maxSold
+    methods: {
+        async getProductInsights() {
+            const { maxSold } = await getMaxAndMinSoldProducts()
+            this.maxSold = maxSold
+        },
+        getInsightsRepeatedly() {
+            this.interval = setInterval(() => {
+                this.getProductInsights()
+            }, 10000)
         }
     },
-    created () {
+    created() {
         this.getProductInsights()
+        this.getInsightsRepeatedly()
+    },
+    beforeUnmount () {
+        clearInterval(this.interval)
     },
 }
 </script>
