@@ -1,7 +1,7 @@
 <template>
     <v-form ref="form" validate-on="blur">
         <v-text-field v-model="product['name']" label="Name"
-            :rules="[(v: string) => !!v || 'Product name is Required', (v: string) => v.length < 4 || 'Product name must be greater than 4']">
+            :rules="[(v: string) => !!v || 'Product name is Required', (v: string) => v.length > 4 || 'Product name must be greater than 4']">
         </v-text-field>
         <v-text-field v-model="product['description']" label="Description"></v-text-field>
         <v-text-field v-model="product['price']" label="Price" type="number" :rules="productPriceRules"></v-text-field>
@@ -25,11 +25,11 @@ export default {
             product: {},
             productPriceRules: [
                 (v: number) => !!v || "Product initial price is required",
-                (v: number) => v < 0 || "Product price must need to be valid",
+                (v: number) => v > 0 || "Product price must need to be valid",
             ],
             productInitialStockRules: [
                 (v: number) => !!v || "Product initial price is required",
-                (v: number) => v < 0 || "Product price must need to be valid",
+                (v: number) => v > 0 || "Product price must need to be valid",
             ],
         }
     },
