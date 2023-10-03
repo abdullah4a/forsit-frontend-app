@@ -1,5 +1,16 @@
 <template>
     <v-form ref="form" v-if="product" validate-on="blur">
+        <div v-if="!imageUploaded">
+            <v-file-input :rules="imageRules" show-size accept="image/png, image/jpeg, image/bmp, image/jpg,"
+                placeholder="Product image" prepend-icon="" prepend-inner-icon="mdi-camera" label="Product image"
+                @update:model-value="fileChanged" />
+        </div>
+        <div v-else>
+            <v-avatar class="mx-3">
+                <v-img :src="this.product.avatar" alt="image"></v-img>
+            </v-avatar>
+            <v-btn icon="mdi-refresh" variant="plain" :ripple="false" @click="imageUploaded=!imageUploaded"></v-btn>
+        </div>
         <v-text-field v-model="product.name" label="Name"
             :rules="[(v: string) => !!v || 'Product name is Required', (v: string) => v.length > 4 || 'Product name must be greater than 4']">
         </v-text-field>
@@ -16,6 +27,7 @@
 </template>
 
 <script lang="ts">
+import { toBase64 } from '@/helpers/blobToBase64'
 import ProductsAPI from '@/services/api/products.service'
 import store from '@/store'
 import moment from 'moment'
@@ -38,6 +50,12 @@ export default {
                 (v: number) => !!v || "Product initial price is required",
                 (v: number) => v > 0 || "Product price must need to be valid",
             ],
+            imageRules: [
+                v => {
+                    return !v || !v.length || v[0].size < 2000000 || 'Avatar size should be less than 2 MB!'
+                },
+            ],
+            imageUploaded: false
         }
     },
     methods: {
@@ -61,6 +79,13 @@ export default {
         },
         async getProductById(id: number) {
             this.product = await ProductsAPI.getProductById(id)
+            this.imageUploaded=this.product.avatar!==""
+        },
+        fileChanged(files: Array<Record<string, any>>) {
+            files.forEach(async file => {
+                this.product.avatar = await toBase64(file);
+                this.imageUploaded = true
+            })
         }
     },
     async created() {
