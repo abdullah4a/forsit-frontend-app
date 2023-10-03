@@ -1,5 +1,4 @@
 <template>
-    <v-main>
         <v-sheet>
             <v-card-title class="mt-6 text-h5">{{ getTitle }}</v-card-title>
             <AppDataControlBar :search-able="showSearch" :show-controls="showControls" @search:input="searched">
@@ -11,7 +10,6 @@
                 <slot name="content"></slot>
             </v-card-text>
         </v-sheet>
-    </v-main>
 </template>
 
 <script lang="ts">

@@ -11,7 +11,7 @@
         </v-card-title>
         <template #append>
             <div>
-                {{ getLowerTrendingProduct.quantity > 25? 'Better': 'Bad' }}
+                {{ getLowerTrendingProduct.quantity > 25 ? 'Better' : 'Bad' }}
                 <v-btn :icon="getLowerTrendingProduct.quantity > 25 ? 'mdi-arrow-up' : 'mdi-arrow-down'" size="small"
                     variant="plain" :ripple="false"></v-btn>
             </div>
@@ -40,15 +40,25 @@ export default {
         async getProductDetails() {
             const product_id = this.getLowerTrendingProduct.product_id
             this.product = await ProductsAPI.getProductById(product_id)
+        },
+        getInsightsRepeatedly() {
+            this.interval = setInterval(() => {
+                this.getProductDetails()
+            }, 10000)
         }
     },
     data() {
         return {
-            product: undefined
+            product: undefined,
+            interval: 1 * 1000
         }
     },
     created() {
         this.getProductDetails()
+        this.getInsightsRepeatedly()
+    },
+    beforeUnmount() {
+        clearInterval(this.interval)
     },
 }
 </script>

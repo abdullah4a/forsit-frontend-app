@@ -31,7 +31,7 @@ export default {
   components: {
     AgGridVue,
   },
-  emits:['selected-row', 'cell-clicked'],
+  emits: ['selected-row', 'cell-clicked'],
   computed: {
     isDarkTheme() {
       return generalStorage.getLocalItem(localStorageKeys.CURRENT_THEME) === 'dark'
@@ -82,7 +82,7 @@ export default {
     showClearBtnFilter: {
       type: Boolean,
     },
-    showResetBtnFilter:{
+    showResetBtnFilter: {
       type: Boolean,
     }
   },
@@ -91,18 +91,19 @@ export default {
       gridApi: null,
       gridColumnApi: null,
       paginationPageSize: 10,
-      showRowUpdate:false,
-      rowData:[]
+      showRowUpdate: false,
+      rowData: []
     }
   }, methods: {
     onGridReady(params) {
       this.gridApi = params.api;
+      params.api.refreshCells()
       this.gridColumnApi = params.columnApi;
     },
     cellWasClicked(event: any) {
       const { value } = event
       this.$emit('cell-clicked', value)
-      this.showRowUpdate=true
+      this.showRowUpdate = true
     },
     rowSelection() {
       const selectedRows = this.gridApi.getSelectedRows();
@@ -110,17 +111,22 @@ export default {
     }
   },
   watch: {
-    items(items) {
-      this.rowData = items;
+    'items': function (newVal) {
+      this.rowData = newVal
       if (this.gridApi) {
-      this.gridApi.setRowData(items);
+        this.gridApi.refreshCells()
       }
     },
+    'gridApi': function (newVal) {
+      if (newVal) {
+        this.gridApi.refreshCells()
+      }
+    }
   },
   mounted() {
     this.gridApi = this.$refs.agGrid.api;
   },
-};
+}
 </script>
   
 <style lang="scss"></style>
